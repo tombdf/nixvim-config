@@ -59,7 +59,7 @@
           if socket and socket ~= "" and win_id then
             vim.fn.jobstart({
               "kitten", "@", "--to=" .. socket,
-              "set-spacing", "--match", "id:" .. win_id, "padding=0"
+              "set-spacing", "--match", "id:" .. win_id, "padding-left=0"
             })
           end
         end
@@ -72,9 +72,9 @@
           local socket = os.getenv("KITTY_LISTEN_ON")
           local win_id = os.getenv("KITTY_WINDOW_ID")
           if socket and socket ~= "" and win_id then
-            vim.fn.jobstart({
+            vim.fn.system({
               "kitten", "@", "--to=" .. socket,
-              "set-spacing", "--match", "id:" .. win_id, "padding=5"
+              "set-spacing", "--match", "id:" .. win_id, "padding-left=5"
             })
           end
         end
