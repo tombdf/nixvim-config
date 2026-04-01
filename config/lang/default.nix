@@ -11,6 +11,7 @@
     ./haskell.nix
     ./markdown.nix
     ./python.nix
+    ./rust.nix
   ];
 
   plugins = {
