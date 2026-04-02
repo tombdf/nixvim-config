@@ -402,13 +402,13 @@
     {
       mode = "n";
       key = "[d";
-      action = "<cmd>lua vim.diagnostic.goto_prev()<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = -1 })<cr>";
       options.desc = "Previous Diagnostic";
     }
     {
       mode = "n";
       key = "]d";
-      action = "<cmd>lua vim.diagnostic.goto_next()<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = 1 })<cr>";
       options.desc = "Next Diagnostic";
     }
 

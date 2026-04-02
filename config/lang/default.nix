@@ -74,34 +74,38 @@
             node_decremental = "<M-space>";
           };
         };
-
-        # Plugin additionnel pour le contexte
-        treesitter-context = {
-          enable = true;
-          settings = {
-            enable = true;
-            max_lines = 0;
-            line_numbers = true;
-            trim_scope = "outer";
-            mode = "cursor";
-          };
-        };
-
-        # Text objects utiles
-        textobjects = {
-          select = {
-            enable = true;
-            lookahead = true;
-            keymaps = {
-              "af" = "@function.outer";
-              "if" = "@function.inner";
-              "ac" = "@class.outer";
-              "ic" = "@class.inner";
-            };
-          };
-        };
       };
     };
+
+    # Plugin additionnel pour le contexte
+    treesitter-context = {
+      enable = true;
+      settings = {
+        max_lines = 0;
+        line_numbers = true;
+        trim_scope = "outer";
+        mode = "cursor";
+      };
+    };
+
+
+    # NOTE: Bug actuellement sur nixpkgs 25.11+, à réactiver par la suite (voir issue #4108)
+    # Text objects utiles  
+    # treesitter-textobjects = {
+    #   enable = true;
+    #   settings = {
+    #     select = {
+    #       enable = true;
+    #       lookahead = true;
+    #       keymaps = {
+    #         "af" = "@function.outer";
+    #         "if" = "@function.inner";
+    #         "ac" = "@class.outer";
+    #         "ic" = "@class.inner";
+    #       };
+    #     };
+    #   };
+    # };
 
     conform-nvim = {
       enable = true;
@@ -126,66 +130,82 @@
     };
   };
 
-  extraConfigLua = ''
-    -- Configuration des icônes de diagnostic dans la marge
-    vim.diagnostic.config({
-      signs = {
-        text = {
+  # keymaps = [
+  #   {
+  #     mode = "n";
+  #     key = "[C"; # [c est pris par mini.bracketed (comments)
+  #     action.__raw = ''function() require("treesitter-context").go_to_context(vim.v.count1) end'';
+  #     options = { silent = true; desc = "Go to context"; };
+  #   }
+  # ];
+
+  diagnostic.settings = {
+    virtual_lines.current_line = true;
+    virtual_text = false;
+    #   spacing = 4;
+    #   prefix = "●";
+    #   format.__raw = ''
+    #     function(diagnostic)
+    #       local message = diagnostic.message
+    #       if #message > 60 then
+    #         message = message:sub(1, 57) .. "..."
+    #       end
+    #       local source = diagnostic.source
+    #       if source and source ~= "" then
+    #         return string.format("[%s] %s", source, message)
+    #       end
+    #       return message
+    #     end
+    #   '';
+    # };
+
+    float = {
+      focusable = false;
+      style = "minimal";
+      source = "always";
+      header = "";
+      prefix = "";
+      suffix = "";
+      format.__raw = ''
+        function(diagnostic)
+          local code = diagnostic.code and string.format(" [%s]", diagnostic.code) or ""
+          local source = diagnostic.source and string.format(" (%s)", diagnostic.source) or ""
+          return string.format("%s%s%s", diagnostic.message, code, source)
+        end
+      '';
+    };
+
+    signs = {
+      text.__raw = ''
+        {
           [vim.diagnostic.severity.ERROR] = " ",
           [vim.diagnostic.severity.WARN] = " ",
           [vim.diagnostic.severity.INFO] = " ",
           [vim.diagnostic.severity.HINT] = "󰌵 ",
-        },
-      },
-      
-      virtual_text = {
-        enabled = true,
-        spacing = 4,
-        prefix = "●",
-        format = function(diagnostic)
-          local message = diagnostic.message
-          if #message > 60 then
-            message = message:sub(1, 57) .. "..."
-          end
-          
-          -- Ajouter la source si elle existe
-          local source = diagnostic.source
-          if source and source ~= "" then
-            return string.format("[%s] %s", source, message)
-          end
-          
-          return message
-        end,
-      },
-      
-      float = {
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = "",
-        suffix = "",
-        format = function(diagnostic)
-          local code = diagnostic.code and string.format(" [%s]", diagnostic.code) or ""
-          local source = diagnostic.source and string.format(" (%s)", diagnostic.source) or ""
-          return string.format("%s%s%s", diagnostic.message, code, source)
-        end,
-      },
-      
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true,
-      
-      jump = {
-        float = true,  -- Ouvrir float automatiquement lors de la navigation
-      },
-    })
-    
-    -- Configuration des highlights (couleurs gruvbox)
-    vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#fb4934" })  -- Rouge
-    vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#fabd2f" })   -- Jaune
-    vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = "#83a598" })   -- Bleu
-    vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#8ec07c" })   -- Vert
-  '';
+        }
+      '';
+    };
+
+    underline = true;
+    update_in_insert = true;
+    severity_sort = true;
+
+    # Neovim 0.11 : ouvre automatiquement le float lors de la navigation [d/]d
+    jump = {
+      float = false;
+    };
+  };
+
+  # Relance lint après auto-save (noautocmd = true empêche BufWritePost)
+  autoCmd = [
+    {
+      event = [ "User" ];
+      pattern = [ "AutoSaveWritePost" ];
+      callback.__raw = ''
+        function()
+          require('lint').try_lint()
+        end
+      '';
+    }
+  ];
 }

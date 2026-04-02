@@ -55,8 +55,8 @@
         # APPARENCE
         # =====================================================================
         appearance = {
-          use_nvim_cmp_as_default = true;
-          nerd_font_variant = "mono";
+          use_nvim_cmp_as_default = false;
+          nerd_font_variant = "normal";
         };
 
         # =====================================================================
@@ -71,13 +71,6 @@
 
           documentation = {
             auto_show = true;
-            window = {
-              border = "rounded";
-            };
-          };
-
-          menu = {
-            border = "rounded";
           };
 
           ghost_text = {
@@ -90,9 +83,6 @@
         # =====================================================================
         signature = {
           enabled = true;
-          window = {
-            border = "rounded";
-          };
         };
       };
     };

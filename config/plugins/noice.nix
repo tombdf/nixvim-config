@@ -14,7 +14,7 @@
           bottom_search = true; # Recherche en bas (style classique)
           command_palette = true; # Cmdline + popupmenu ensemble  
           long_message_to_split = true; # Messages longs en split
-          lsp_doc_border = false; # Pas de bordures LSP (cohérent gruvbox)
+          lsp_doc_border = true;
         };
 
         # ===== LSP OVERRIDE ESSENTIELS =====

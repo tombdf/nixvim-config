@@ -5,6 +5,25 @@
   # =====================================================================
 
   plugins = {
+
+    smear-cursor = {
+      enable = true;
+      settings = {
+        # Transparent background : couleur de fallback gruvbox
+        transparent_bg_fallback_color = "#32302F";
+        # Couleur du curseur (gruvbox fg)
+        cursor_color = "#ebdbb2";
+
+        # Activer l'animation en mode insert
+        smear_insert_mode = true;
+
+        # Ces options permettent l'option "Smooth cursor without smear"
+        stiffness = 0.5;
+        trailing_stiffness = 0.5;
+        matrix_pixel_threshold = 0.5;
+      };
+    };
+
     # =================================================================
     # BETTER-ESCAPE - Sortie fluide du mode insertion
     # =================================================================
@@ -80,7 +99,7 @@
       settings = {
         # Configuration conservatrice et sûre
         enabled = true;
-        noautocmd = true;
+        noautocmd = true; # évite le formattage auto à chaque retour en mode normal
 
         # Déclencheurs intelligents
         trigger_events = {

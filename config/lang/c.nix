@@ -9,11 +9,7 @@
   # =====================================================================
   plugins.clangd-extensions = {
     enable = true;
-    # Tous les défauts sont parfaits, on ne configure que les bordures
-    settings = {
-      memory_usage.border = "rounded";
-      symbol_info.border = "rounded";
-    };
+    # Tous les défauts sont parfaits
   };
 
   plugins = {

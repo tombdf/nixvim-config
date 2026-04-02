@@ -77,15 +77,9 @@
           local opts = { buffer = bufnr, desc = "" }
 
           -- Override K : hover actions rustaceanvim (plus riche que le défaut LSP)
-          -- opts.desc = "Hover Actions"
-          -- vim.keymap.set("n", "K", function()
-          --   vim.cmd.RustLsp({ "hover", "actions" })
-          -- end, opts)
-
-          -- Code actions groupées (rustaceanvim gère les groupes rust-analyzer)
-          opts.desc = "Code Actions"
-          vim.keymap.set({ "n", "v" }, "<leader>Ra", function()
-            vim.cmd.RustLsp("codeAction")
+          opts.desc = "Hover Actions"
+          vim.keymap.set("n", "K", function()
+            vim.cmd.RustLsp({ "hover", "actions" })
           end, opts)
 
           -- Runnables (cargo run, tests, exemples...)
@@ -104,6 +98,12 @@
           opts.desc = "Expand Macro"
           vim.keymap.set("n", "<leader>Re", function()
             vim.cmd.RustLsp("expandMacro")
+          end, opts)
+
+          -- Ouvrir Cargo.toml
+          opts.desc = "Open Cargo.toml"
+          vim.keymap.set("n", "<leader>Rc", function()
+            vim.cmd.RustLsp("openCargo")
           end, opts)
 
           -- Module parent

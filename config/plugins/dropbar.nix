@@ -50,10 +50,6 @@
 
       # Bordures arrondies pour cohérence avec le reste de la config
       menu = {
-        win_configs = {
-          border = "rounded";
-        };
-
         # Réduire la hauteur max pour éviter les conflits
         max_height = 15;
       };

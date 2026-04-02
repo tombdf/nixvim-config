@@ -46,6 +46,9 @@
 
     # Interface terminale
     termguicolors = true;
+
+    # Bordures des fenêtres flottantes
+    winborder = "rounded";
   };
 
   # Modifie le padding kitty en entrant et en quittant nvim

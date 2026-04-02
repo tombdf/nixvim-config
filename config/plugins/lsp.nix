@@ -11,7 +11,6 @@
     goto-preview = {
       enable = true;
       settings = {
-        border = "rounded"; # Cohérence avec le reste
         default_mappings = false; # On configure nos keymaps
       };
     };
