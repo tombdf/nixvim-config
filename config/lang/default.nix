@@ -110,10 +110,10 @@
     conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = {
-          timeout_ms = 1000;
-          lsp_fallback = true; # Fallback vers LSP si conform n'a pas de formatter
-        };
+        # format_on_save = {
+        #   timeout_ms = 1000;
+        #   lsp_fallback = true; # Fallback vers LSP si conform n'a pas de formatter
+        # };
       };
     };
 
@@ -197,15 +197,15 @@
   };
 
   # Relance lint après auto-save (noautocmd = true empêche BufWritePost)
-  autoCmd = [
-    {
-      event = [ "User" ];
-      pattern = [ "AutoSaveWritePost" ];
-      callback.__raw = ''
-        function()
-          require('lint').try_lint()
-        end
-      '';
-    }
-  ];
+  # autoCmd = [
+  #   {
+  #     event = [ "User" ];
+  #     pattern = [ "AutoSaveWritePost" ];
+  #     callback.__raw = ''
+  #       function()
+  #         require('lint').try_lint()
+  #       end
+  #     '';
+  #   }
+  # ];
 }

@@ -99,7 +99,7 @@
       settings = {
         # Configuration conservatrice et sûre
         enabled = true;
-        noautocmd = true; # évite le formattage auto à chaque retour en mode normal
+        # noautocmd = true; # évite le formattage auto à chaque retour en mode normal
 
         # Déclencheurs intelligents
         trigger_events = {
