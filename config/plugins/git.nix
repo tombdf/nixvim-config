@@ -34,7 +34,7 @@
     # =================================================================
     fugitive.enable = true;
     diffview.enable = true;
-    git-conflict.enable = true;
+    # git-conflict.enable = true;
   };
 
   plugins.which-key.settings.spec = [
@@ -181,7 +181,7 @@
     })
     
     -- Git-conflict : défauts parfaits, juste activer
-    require("git-conflict").setup()
+    -- require("git-conflict").setup()
     
     -- Commandes utiles simplifiées
     vim.api.nvim_create_user_command("GitStageFile", function()
